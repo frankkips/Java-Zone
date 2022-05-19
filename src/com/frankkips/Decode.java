@@ -37,9 +37,7 @@ public class Decode {
 //        Identification
 
         //making a change to see on github
-        int sourceIp = bytes[0];
-        int destinationIP = bytes[13];
-        System.out.println(sourceIp + destinationIP);
+
 
 
 
