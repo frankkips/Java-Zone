@@ -34,7 +34,30 @@ public class Decode {
         totalLength = totalLength | (bytes[2] & 0xff) << 8;   //0x00000000 | 0x00  --> 0x00000000 <-- 0x00000000
         totalLength = totalLength| (bytes[3] & 0xff);    // 0x00000000 | 0xd2 ---> 0x000000d2
         System.out.println("totalLength: "+totalLength);
-//        Identification
+//        Flags
+//        0b 0000 0000 0000 0000
+//        0b000 flags ---> Fragment offset --> 0b0 0000 0000 0000 0000
+//        0x40,0x00 doNotFragment and offset
+//        000 --> reserved,do-not-fragment, more fragments
+        byte mask = (byte) 0b01000000;
+
+         boolean doNotFragment = ((bytes[6] & 0xff) & 0b01000000) > 0;
+         boolean moreFragments = ((bytes[6] & 0xff) & 0b00100000) > 0;
+
+        System.out.println("doNotFragment: " + doNotFragment);
+        System.out.println("moreFragments: " + moreFragments);
+
+//        fragment offset
+        int fragmentOffset = 0;
+        
+
+
+
+
+
+
+
+
 
         //making a change to see on github
 
@@ -62,20 +85,20 @@ public class Decode {
 
 
 
-//        byte flag = 0x40;
+//        byte doNotFragment = 0x40;
 //
 //        byte mask = (byte) 0b10000000;
-//        boolean request = (mask & flag) != 0;
+//        boolean request = (mask & doNotFragment) != 0;
 //        System.out.println("Request Flag " + request);
 //
 ////        Proxiable
 //        byte mask2 = (byte) 0b01000000;
-//        boolean request2 = (mask2 & flag) != 0;
+//        boolean request2 = (mask2 & doNotFragment) != 0;
 //        System.out.println("Proxiable Flag " + request2);
 //
 ////        error
 //        byte mask3 = (byte) 0b00100000;
-//        boolean request3 = (mask3 & flag) != 0;
+//        boolean request3 = (mask3 & doNotFragment) != 0;
 //        System.out.println("error Flag " + request3);
 //
 //
